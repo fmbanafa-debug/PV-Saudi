@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFDA GVP & Regulatory Lifecycle – Interactive Guide</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Use Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Simple fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Style for the active nav button */
+        .nav-btn.active {
+            background-color: #0d9488; /* teal-600 */
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 antialiased">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-800 to-teal-700 text-white text-center p-6 sm:p-8 relative overflow-hidden">
+        <img src="https://www.sfda.gov.sa/sites/all/themes/sfda/logo.png" 
+             alt="SFDA Logo" 
+             class="h-16 sm:h-20 w-auto mx-auto mb-3"
+             onerror="this.style.display='none'"> <!-- Fallback if logo fails -->
+        <h1 class="text-2xl sm:text-3xl font-bold">Guideline on Good Pharmacovigilance Practices (GVP)</h1>
+        <p class="text-lg sm:text-xl italic font-light mt-1">Draft Version 3.2 – November 2025</p>
+        <p class="text-sm opacity-90 mt-1">Saudi Food & Drug Authority (SFDA) – Drug Sector</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-blue-900 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="relative flex items-center justify-center h-16">
+                <div class="flex-1 flex items-center justify-center">
+                    <div class="flex flex-wrap justify-center gap-2 sm:gap-3" role="tablist" aria-orientation="horizontal">
+                        <button id="btn-lifecycle" class="nav-btn active" onclick="openTab('lifecycle', this)" role="tab" aria-controls="tab-lifecycle" aria-selected="true">
+                            Regulatory Lifecycle
+                        </button>
+                        <button id="btn-saudi-pv" class="nav-btn" onclick="openTab('saudi-pv', this)" role="tab" aria-controls="tab-saudi-pv" aria-selected="false">
+                            Saudi PV Requirements
+                        </button>
+                        <button id="btn-gvp-changes" class="nav-btn" onclick="openTab('gvp-changes', this)" role="tab" aria-controls="tab-gvp-changes" aria-selected="false">
+                            GVP Updates (v3.2)
+                        </button>
+                        <!-- EXPANDED: New Acronyms Tab -->
+                        <button id="btn-acronyms" class="nav-btn" onclick="openTab('acronyms', this)" role="tab" aria-controls="tab-acronyms" aria-selected="false">
+                            Key Acronyms
+                        </button>
+                        <!-- EXPANDED: New Timelines Tab -->
+                        <button id="btn-timelines" class="nav-btn" onclick="openTab('timelines', this)" role="tab" aria-controls="tab-timelines" aria-selected="false">
+                            Key Timelines
+                        </button>
+                        
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile-friendly scrollbar for nav buttons -->
+        <div class="sm:hidden overflow-x-auto whitespace-nowrap p-2 bg-blue-800 -mt-2 shadow-inner">
+             <button class="nav-btn-mobile" onclick="openTab('lifecycle', document.getElementById('btn-lifecycle'))">Lifecycle</button>
+             <button class="nav-btn-mobile" onclick="openTab('saudi-pv', document.getElementById('btn-saudi-pv'))">Saudi PV</button>
+             <button class="nav-btn-mobile" onclick="openTab('gvp-changes', document.getElementById('btn-gvp-changes'))">GVP Updates</button>
+             <button class="nav-btn-mobile" onclick="openTab('acronyms', document.getElementById('btn-acronyms'))">Acronyms</button>
+             <button class="nav-btn-mobile" onclick="openTab('timelines', document.getElementById('btn-timelines'))">Timelines</button>
+        </div>
+    </nav>
+    
+    <!-- Apply Tailwind classes to nav buttons -->
+    <style>
+      .nav-btn {
+        @apply bg-blue-700 text-white text-xs sm:text-sm font-medium py-2 px-3 sm:px-4 rounded-lg transition-all duration-200 ease-in-out;
+      }
+      .nav-btn:hover {
+        @apply bg-teal-500 shadow-md;
+      }
+      .nav-btn-mobile {
+         @apply inline-block bg-blue-700 text-white text-xs font-medium py-2 px-3 rounded-full transition-all duration-200 ease-in-out ml-2 first:ml-0;
+      }
+      .nav-btn-mobile:hover {
+         @apply bg-teal-500;
+      }
+    </style>
+
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Tab 1: Regulatory Lifecycle -->
+        <div id="tab-lifecycle" class="tab-content active" role="tabpanel" aria-labelledby="btn-lifecycle">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">Pharmaceutical Regulatory Lifecycle with Saudi PV Integration</h2>
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md ring-1 ring-black ring-opacity-5">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Stage</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Who Initiates</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Duration</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Global PV</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                <span class="bg-green-700 text-white px-2 py-1 rounded-md font-bold text-xs inline-block">Saudi PV (SFDA)</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1. Preclinical</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Sponsor (R&D)</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">3–6 yrs</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Initial safety data</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">No specific requirement</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2. IND/CTA Submission</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Sponsor → SFDA</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">30–60 days</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">IND safety section</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><strong>Full RMP + SSA</strong> for NCE, biologics, first generics of non-SFDA ref</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3. Phase I–III Trials</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Sponsor + CROs</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">5–7 yrs</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">DSUR, ICSR, SUSAR</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><strong>QPPV registered before FPF</strong> via Saudi Vigilance System</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4. Registration</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Sponsor → SFDA</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">12–18 mo</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Final DSUR, RMP</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><strong>SSA mandatory</strong> with every RMP (pre/post)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">5. Approval & Launch</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">SFDA</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">N/A</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PSMF, QPPV</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><strong>Arabic ADR webpage + ICSR reconciliation</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">6. Post-Marketing</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">MAH + QPPV</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Lifetime</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PSUR/PBRER, PASS</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><strong>PSUR mandatory</strong> for NCEs, biologics, first generics<br>DHPC: one MAH contact</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">7. WHO-WLA Signal</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">MAH monitors</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Ongoing</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Signal eval</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><strong>21-day variation</strong> if SPC/PIL change</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">8. Non-WLA Signal</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">QPPV assesses</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Ongoing</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Assessment report</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><strong>180-day report to NPC</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 2: Saudi PV Focus -->
+        <div id="tab-saudi-pv" class="tab-content hidden" role="tabpanel" aria-labelledby="btn-saudi-pv">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">Saudi-Specific Pharmacovigilance Requirements (SFDA GVP v3.2)</h2>
+            <div class="space-y-4 text-gray-700">
+                <div class="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+                    <h3 class="font-bold text-lg text-blue-800">Personnel & Systems</h3>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li><strong>QPPV Registration:</strong> Full-time local QPPV + Deputy via <a href="https://ade.sfda.gov.sa/Qppv/Register" target="_blank" class="text-blue-600 hover:underline">Saudi Vigilance System</a>.</li>
+                        <li><strong>QPPV Training:</strong> Every <strong>3 years</strong> (was 2) + must be licensed by SCFHS.</li>
+                        <li><strong>Arabic Webpage:</strong> Mandatory for ADR reporting with QPPV contact information.</li>
+                    </ul>
+                </div>
+                
+                <div class="p-4 bg-teal-50 border-l-4 border-teal-500 rounded-r-lg">
+                    <h3 class="font-bold text-lg text-teal-800">Documents & Submissions</h3>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li><strong>SSA (Saudi-Specific Annex):</strong> Required with <em>every</em> RMP submission (pre- and post-approval).</li>
+                        <li><strong>PSUR/PBRER:</strong> Submit via CD or DS@sfda.gov.sa + provide an annual submission plan.</li>
+                        <li><strong>aRMMs:</strong> Submit Word & Designed versions + Translator License (for Arabic translation).</li>
+                    </ul>
+                </div>
+
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg">
+                    <h3 class="font-bold text-lg text-yellow-800">Communications & Signals</h3>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li><strong>DHPC:</strong> One MAH (preferably originator) acts as the single SFDA contact point.</li>
+                        <li><strong>Signal Timelines (WHO-WLA):</strong> <strong>21 days</strong> to submit a variation if SPC/PIL change is needed.</li>
+                        <li><strong>Signal Timelines (Non-WLA):</strong> <strong>180 days</strong> to submit an assessment report to the NPC.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: GVP Updates -->
+        <div id="tab-gvp-changes" class="tab-content hidden" role="tabpanel" aria-labelledby="btn-gvp-changes">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">What’s New in GVP Draft v3.2?</h2>
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md ring-1 ring-black ring-opacity-5">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Section</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Change Type</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Key Update</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">VII.C.1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Add</span></td>
+                            <td class="px-6 py-4 text-sm text-gray-700">PSUR mandatory for NCEs, biologics, and first generics.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">V.B.10.9</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Update</span></td>
+                            <td class="px-6 py-4 text-sm text-gray-700">SSA required with all RMPs (pre- and post-marketing).</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">V.C.1.1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Add</span></td>
+                            <td class="px-6 py-4 text-sm text-gray-700">Full RMP required for generics of a non-SFDA reference product.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">XV.C.2.1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Add</span></td>
+                            <td class="px-6 py-4 text-sm text-gray-700">SFDA may publish DHPC; one MAH to act as single contact.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">I.C.1.2</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Update</span></td>
+                            <td class="px-6 py-4 text-sm text-gray-700">QPPV training required every 3 years (was 2) + full competency list added.</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">IX.C.1</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Add</span></td>
+                            <td class="px-6 py-4 text-sm text-gray-700">WHO-WLA signals: 21-day variation submission if safety change is needed.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 4: Key Acronyms (EXPANDED) -->
+        <div id="tab-acronyms" class="tab-content hidden" role="tabpanel" aria-labelledby="btn-acronyms">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">Key Acronyms & Definitions</h2>
+            
+            <!-- Filter Input -->
+            <div class="mb-6">
+                <label for="acronym-filter" class="block text-sm font-medium text-gray-700 mb-1">Filter Acronyms</label>
+                <input type="text" id="acronym-filter" onkeyup="filterAcronyms()" placeholder="Type to filter (e.g., PSUR, QPPV...)" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <!-- Acronym List -->
+            <div id="acronym-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">ADR</h3>
+                    <p class="text-gray-700">Adverse Drug Reaction</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">aRMM</h3>
+                    <p class="text-gray-700">Additional Risk Minimisation Measures</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">CTA</h3>
+                    <p class="text-gray-700">Clinical Trial Application</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">DHPC</h3>
+                    <p class="text-gray-700">Direct Healthcare Professional Communication</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">DSUR</h3>
+                    <p class="text-gray-700">Development Safety Update Report</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">FPF</h3>
+                    <p class="text-gray-700">First Patient First (Visit)</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">GVP</h3>
+                    <p class="text-gray-700">Good Pharmacovigilance Practices</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">ICSR</h3>
+                    <p class="text-gray-700">Individual Case Safety Report</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">IND</h3>
+                    <p class="text-gray-700">Investigational New Drug</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">MAH</h3>
+                    <p class="text-gray-700">Marketing Authorisation Holder</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">NCE</h3>
+                    <p class="text-gray-700">New Chemical Entity</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">NPC</h3>
+                    <p class="text-gray-700">National Pharmacovigilance Center (Saudi Vigilance)</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">PASS</h3>
+                    <p class="text-gray-700">Post-Authorisation Safety Study</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">PBRER</h3>
+                    <p class="text-gray-700">Periodic Benefit-Risk Evaluation Report</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">PIL</h3>
+                    <p class="text-gray-700">Patient Information Leaflet</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">PSMF</h3>
+                    <p class="text-gray-700">Pharmacovigilance System Master File</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">PSUR</h3>
+                    <p class="text-gray-700">Periodic Safety Update Report</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">QPPV</h3>
+                    <p class="text-gray-700">Qualified Person for Pharmacovigilance</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">RMP</h3>
+                    <p class="text-gray-700">Risk Management Plan</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">SCFHS</h3>
+                    <p class="text-gray-700">Saudi Commission for Health Specialties</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">SPC</h3>
+                    <p class="text-gray-700">Summary of Product Characteristics</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">SSA</h3>
+                    <p class="text-gray-700">Saudi-Specific Annex (for RMP)</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">SUSAR</h3>
+                    <p class="text-gray-700">Suspected Unexpected Serious Adverse Reaction</p>
+                </div>
+                <div class="acronym-item p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-lg text-blue-800">WHO-WLA</h3>
+                    <p class="text-gray-700">World Health Organization - Works List countries (Signal)</p>
+                </div>
+            </div>
+            <p id="no-acronym-results" class="text-center text-gray-500 mt-6 hidden">No acronyms found matching your filter.</p>
+        </div>
+        
+        <!-- Tab 5: Key Timelines (EXPANDED) -->
+        <div id="tab-timelines" class="tab-content hidden" role="tabpanel" aria-labelledby="btn-timelines">
+            <h2 class="text-2xl font-bold text-blue-900 mb-6">Key Saudi PV Reporting Timelines</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-red-500">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-red-600">ASAP (24h)</h3>
+                        <p class="text-gray-700 mt-2"><strong>ICSRs (Serious, KSA):</strong> Report all serious adverse reactions occurring in Saudi Arabia.</p>
+                        <p class="text-sm text-gray-500 mt-1">(Previously 15 days, now aligned with global best practice)</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-orange-500">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-orange-600">21 Days</h3>
+                        <p class="text-gray-700 mt-2"><strong>WHO-WLA Signals:</strong> Submit a variation to SFDA if a signal from a WHO-WLA country requires a change to the SPC or PIL.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-yellow-500">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-yellow-600">30-60 Days</h3>
+                        <p class="text-gray-700 mt-2"><strong>IND/CTA Review:</strong> SFDA review period for Clinical Trial Applications.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-blue-500">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-blue-600">180 Days</h3>
+                        <p class="text-gray-700 mt-2"><strong>Non-WLA Signals:</strong> Submit a full assessment report to the National Pharmacovigilance Center (NPC) for any new signals.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-teal-500">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-teal-600">3 Years</h3>
+                        <p class="text-gray-700 mt-2"><strong>QPPV Training:</strong> Refresher training and competency assessment for the local QPPV (updated from 2 years).</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border-t-4 border-indigo-500">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-indigo-600">Ongoing</h3>
+                        <p class="text-gray-700 mt-2"><strong>PSUR/PBRER:</strong> Submitted according to the approved annual plan and product lifecycle.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white text-center p-8 mt-12">
+        <p class="text-sm opacity-90">SFDA GVP Interactive Guide | Based on Draft v3.2 – November 2025</p>
+        <p class="text-sm mt-1">Visit the <a href="https://fmbanafa-debug.github.io/Pharmacovigilance-V1/" target="_blank" class="font-medium text-teal-300 hover:text-white hover:underline">Pharmacovigilance-V1</a> for the latest updates.</p>
+    </footer>
+
+    <script>
+        // Store the active tab ID in a variable
+        let currentActiveTabId = 'tab-lifecycle';
+        
+        function openTab(tabName, buttonElement) {
+            const tabId = 'tab-' + tabName;
+            
+            // Get all tab content and hide them
+            const tabs = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.add('hidden');
+                tabs[i].classList.remove('active');
+            }
+
+            // Get all nav buttons and remove active state
+            const buttons = document.getElementsByClassName('nav-btn');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+                buttons[i].setAttribute('aria-selected', 'false');
+            }
+
+            // Show the target tab
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.remove('hidden');
+                targetTab.classList.add('active');
+                currentActiveTabId = tabId; // Update the current active tab
+            }
+
+            // Set the clicked button to active
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+                buttonElement.setAttribute('aria-selected', 'true');
+            }
+            
+            // Sync mobile buttons with main nav
+            syncMobileNav(tabName);
+        }
+
+        function syncMobileNav(activeTabName) {
+            const mobileButtons = document.querySelectorAll('.nav-btn-mobile');
+            mobileButtons.forEach(btn => {
+                if (btn.onclick.toString().includes(`'${activeTabName}'`)) {
+                    btn.classList.add('bg-teal-500', 'font-bold');
+                    btn.classList.remove('bg-blue-700');
+                } else {
+                    btn.classList.remove('bg-teal-500', 'font-bold');
+                    btn.classList.add('bg-blue-700');
+                }
+            });
+        }
+
+        // JavaScript for filtering acronyms
+        function filterAcronyms() {
+            const filterText = document.getElementById('acronym-filter').value.toUpperCase();
+            const list = document.getElementById('acronym-list');
+            const items = list.getElementsByClassName('acronym-item');
+            let visibleCount = 0;
+
+            for (let i = 0; i < items.length; i++) {
+                const title = items[i].getElementsByTagName('h3')[0];
+                const description = items[i].getElementsByTagName('p')[0];
+                
+                if (title.textContent.toUpperCase().indexOf(filterText) > -1 || 
+                    description.textContent.toUpperCase().indexOf(filterText) > -1) {
+                    items[i].style.display = "";
+                    visibleCount++;
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+            
+            // Show or hide the "no results" message
+            const noResultsMsg = document.getElementById('no-acronym-results');
+            if (visibleCount === 0) {
+                noResultsMsg.style.display = 'block';
+            } else {
+                noResultsMsg.style.display = 'none';
+            }
+        }
+        
+        // Initialize the first tab and mobile nav state on load
+        document.addEventListener('DOMContentLoaded', () => {
+            openTab('lifecycle', document.getElementById('btn-lifecycle'));
+        });
+
+    </script>
+
+</body>
+</html>
